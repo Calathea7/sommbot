@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Ratings of Movies and stuff{% endblock %}
+
+{% block body %}
+
+<h2>Welcome to Sommbot!</h2>
+<h4>Please pick your wine search criteria:</h4>
+<form action="/recommendation" id="wine-search" method="POST">
+  <div>
+    Please pick the year of production (optional):
+    <select id="year" name="year">
+      <option value="2014">2014</option>
+      <option value="2011">2011</option>
+      <option value="2009">2009</option>
+      <option value="2006">2006</option>
+    </select>
+  </div>
+  <div>
+    Please pick your price range:
+    Min:
+    <select id="min-price" name="min-price">
+      <option value="0">0</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+    </select>
+    Max:
+    <select id="max-price" name="max-price">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="70">70</option>
+      <option value="1000">1000</option>
+    </select>
+  </div>
+  <div>
+    Please choose descriptors for your dream wine:
+    <input type="checkbox" class="descriptor" name="descriptor" value="cherry">cherry
+    <input type="checkbox" class="descriptor" name="descriptor" value="strawberry">strawberry
+    <input type="checkbox" class="descriptor" name="descriptor" value="mushroom">mushroom
+    <input type="checkbox" class="descriptor" name="descriptor" value="oak">oak
+    <input type="checkbox" class="descriptor" name="descriptor" value="ripe">ripe
+    <input type="checkbox" class="descriptor" name="descriptor" value="perfumed">perfumed
+    <input type="checkbox" class="descriptor" name="descriptor" value="juicy">juicy
+  </div>
+
+  <input type="submit">
+</form>
+{% endblock %}
