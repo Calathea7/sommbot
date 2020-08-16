@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
+from sqlalchemy.sql import func
+from sqlalchemy import desc
 
 db = SQLAlchemy()
 
@@ -122,7 +124,7 @@ class Descriptor(db.Model):
 
 def connect_to_db(flask_app, db_uri='postgresql:///sommbot', echo=True):
     flask_app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-    flask_app.config['SQLALCHEMY_ECHO'] = True
+    # flask_app.config['SQLALCHEMY_ECHO'] = True
     flask_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.app = flask_app
