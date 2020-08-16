@@ -8,7 +8,7 @@ document.querySelector('#wine-search').addEventListener('submit', (evt) => {
   // const descriptors = document.querySelectorALL('.descriptor').value;
 
   $.post('/recommendation', formInputs, (res) => {
-    alert(res.status);
+    alert(res);
   });
 
 });

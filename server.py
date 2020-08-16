@@ -18,16 +18,22 @@ def Homepage():
 
 
 @app.route("/recommendation", methods=["POST"])
-def add_order():
+def recommendation():
 
-  year = request.form.get("year")
+  min_year = request.form.get("min-year", 1000)
+  max_year = request.form.get("max-year", 2017)
   min_price = request.form.get("min-price", 0)
   max_price = request.form.get("max-price", 3300)
   descriptors = request.form.getlist("descriptor")
-  # wines = crud.get_wines_by_filters(year, min_price, max_price...)
 
-  print(descriptors)
-  return jsonify({"status": "This route works"})
+  wines = crud.get_wine_by_filters(min_year, max_year, min_price, max_price, descriptors)
+
+  # wine = [wine for wine in wines]
+
+  results = [wine[0] for wine in wines]
+
+
+  return jsonify(results)
 
 if __name__ == '__main__':
     connect_to_db(app)
