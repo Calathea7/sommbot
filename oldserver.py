@@ -14,10 +14,10 @@ app.jinja_env.undefined = StrictUndefined
 def Homepage():
     """View homepage."""
 
-    return render_template('root.html')
+    return render_template('homepage.html')
 
 
-@app.route("/api/recommendation", methods=["POST"])
+@app.route("/recommendation", methods=["POST"])
 def recommendation():
 
   min_year = request.form.get("min-year", 1000)
@@ -38,7 +38,6 @@ def recommendation():
 if __name__ == '__main__':
     connect_to_db(app)
     app.run(host='0.0.0.0', debug=True)
-
 
 
 
