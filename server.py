@@ -28,10 +28,7 @@ def recommendation():
 
   wines = crud.get_wine_by_filters(min_year, max_year, min_price, max_price, descriptors)
 
-  # wine = [wine for wine in wines]
-
   results = [wine[0] for wine in wines]
-
 
   return jsonify(results)
 
