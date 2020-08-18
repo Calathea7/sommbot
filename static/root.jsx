@@ -26,6 +26,90 @@ function Login(props) {
   )
 }
 
+function getRec(props) {
+
+  const [minYear, setMinYear] = React.useState('1000')
+  const [maxYear, setMaxYear] = React.useState('2017')
+  const [minPrice, setMinPrice] = React.useState('0')
+  const [maxPrice, setMaxPrice] = React.useState('3300')
+  const [descriptor, setDescriptor] = React.useState([])
+
+  const makeRec = () => {
+    const filters = {"min-year":minYear,
+                    "max-year": maxYear,
+                    "min-price": minPrice,
+                    "max-price": maxPrice,
+                    "descriptor": descriptor}
+    fetch('/api/recommendation', {
+      method: 'POST',
+      body: JSON.stringify(filters),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+
+
+  return (
+    <form action="/recommendation" id="wine-search" method="POST">
+      <div>
+        Please pick your year of production range(optional):
+        Min:
+        <select id="min-year" name="min-year">
+          <option value="1970">1970</option>
+          <option value="1980">1980</option>
+          <option value="1990">1990</option>
+          <option value="2000">2000</option>
+        </select>
+        Max:
+        <select id="max-year" name="max-year">
+          <option value="2017">2017</option>
+          <option value="2015">2015</option>
+          <option value="2013">2013</option>
+          <option value="2011">2011</option>
+        </select>
+      </div>
+      <div>
+        Please pick your price range:
+        Min:
+        <select id="min-price" name="min-price">
+          <option value="0">0</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+          <option value="70">70</option>
+        </select>
+        Max:
+        <select id="max-price" name="max-price">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="40">40</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+          <option value="70">70</option>
+          <option value="1000">1000</option>
+        </select>
+      </div>
+      {/* <div>
+        Please choose descriptors for your dream wine:
+        <input type="checkbox" class="descriptor" name="descriptor" value="cherry">cherry
+        <input type="checkbox" class="descriptor" name="descriptor" value="strawberry">strawberry
+        <input type="checkbox" class="descriptor" name="descriptor" value="mushroom">mushroom
+        <input type="checkbox" class="descriptor" name="descriptor" value="oak">oak
+        <input type="checkbox" class="descriptor" name="descriptor" value="ripe">ripe
+        <input type="checkbox" class="descriptor" name="descriptor" value="perfumed">perfumed
+        <input type="checkbox" class="descriptor" name="descriptor" value="juicy">juicy
+      </div> */}
+
+      <input type="submit">
+    </form>
+  )
+}
+
 function PostRecItem(props) {
   return <li>{props.rec}</li>
 }
@@ -87,7 +171,7 @@ function App() {
               <Login />
             </Route>
             <Route path="/recommendation">
-              <Recommendation />
+              <getRec />
             </Route>
             <Route path="/">
               <Homepage />
