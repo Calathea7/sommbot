@@ -26,13 +26,36 @@ function Login(props) {
   )
 }
 
+function PostRecItem(props) {
+  return <li>{props.rec}</li>
+}
+
 function Recommendation(props) {
   // get the info from the server
   // make componenets out of it
   // render them
+  const [recList, setRecList] = React.useState(["loading..."])
 
+  React.useEffect(() => {
+    fetch('/api/recommendation')
+    .then(res => res.json())
+    .then((data) => {
+      const recs = []
+      for (const rec of data) {
+        recs.push(<PostRecItem rec={rec}/>)
+      }
+      setRecList(recs)
+    })
+  }, [])
 
-  return <div> Here are some wines that match your criteria: </div>
+  return (
+    <div>
+      Here are some wines that match your criteria:
+      <ul>
+        {recList}
+      </ul>
+    </div>
+  )
 }
 
 
