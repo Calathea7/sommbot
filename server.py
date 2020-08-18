@@ -19,6 +19,7 @@ def Homepage():
 
 @app.route("/api/recommendation", methods=["POST"])
 def recommendation():
+  print("hitting the rec route \n \n \n")
 
   min_year = request.form.get("min-year", 1000)
   max_year = request.form.get("max-year", 2017)
