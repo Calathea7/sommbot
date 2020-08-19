@@ -30,6 +30,22 @@ function PostRecItem(props) {
   return <li>{props.rec}</li>
 }
 
+// function Selector(props) {
+
+//   function onChange(e) {
+//     this.value = e.target.value
+//   }
+//   return (
+//     <div>
+//       <select onChange={self.onChange}>
+//         {props.optionsList.map(option => {
+//           return <option value={option}> option </option>;
+//         }
+//       </select>
+//     </div>
+//   )
+// }
+
 function Recommendation(props) {
 
   const [minYear, setMinYear] = React.useState('1000')
@@ -40,13 +56,14 @@ function Recommendation(props) {
   const [recList, setRecList] = React.useState(["loading..."])
   const [showResult, setShowResult] = React.useState(false)
 
-  function WineFilters(e) {
+  const WineFilters = (e)=> {
     e.preventDefault()
     const filters = {"min-year":minYear,
                     "max-year": maxYear,
                     "min-price": minPrice,
                     "max-price": maxPrice,
                     "descriptor": descriptor}
+    console.log(filters)
     fetch('/api/recommendation', {
       method: 'POST',
       body: JSON.stringify(filters),
@@ -82,14 +99,15 @@ function Recommendation(props) {
           <div>
             Please pick your year of production range(optional):
             Min:
-            <select onChange={(e) => setMinYear(e.target.value)} id="min-year" name="min-year">
+            {/* <Selector options=[1970, 1980, 1990, 2000] id="min-year" /> */}
+            <select value={minYear} onChange={(e) => setMinYear(e.target.value)} id="min-year" name="min-year">
               <option value="1970">1970</option>
               <option value="1980">1980</option>
               <option value="1990">1990</option>
               <option value="2000">2000</option>
             </select>
             Max:
-            <select onChange={(e) => setMaxYear(e.target.value)} id="max-year" name="max-year">
+            <select value={maxYear} onChange={(e) => setMaxYear(e.target.value)} id="max-year" name="max-year">
               <option value="2017">2017</option>
               <option value="2015">2015</option>
               <option value="2013">2013</option>
@@ -99,7 +117,7 @@ function Recommendation(props) {
           <div>
             Please pick your price range:
             Min:
-            <select onChange={(e) => setMinPrice(e.target.value)} id="min-price" name="min-price">
+            <select value={minPrice} onChange={(e) => setMinPrice(e.target.value)} id="min-price" name="min-price">
               <option value="0">0</option>
               <option value="10">10</option>
               <option value="20">20</option>
@@ -110,7 +128,7 @@ function Recommendation(props) {
               <option value="70">70</option>
             </select>
             Max:
-            <select onChange={(e) => setMaxPrice(e.target.value)} id="max-price" name="max-price">
+            <select value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} id="max-price" name="max-price">
               <option value="10">10</option>
               <option value="20">20</option>
               <option value="30">30</option>
@@ -123,7 +141,7 @@ function Recommendation(props) {
           </div>
           <div>
             Please choose descriptors for your dream wine:
-            <input onChange={(e) => setDescriptor(e.target.value)} type="checkbox" className="descriptor" name="descriptor" value="cherry"/>cherry
+            <input value={descriptor} onChange={(e) => setDescriptor(e.target.value)} type="checkbox" className="descriptor" name="descriptor" value="cherry"/>cherry
             <input type="checkbox" className="descriptor" name="descriptor" value="strawberry"/>strawberry
             <input type="checkbox" className="descriptor" name="descriptor" value="mushroom"/>mushroom
             <input type="checkbox" className="descriptor" name="descriptor" value="oak"/>oak
