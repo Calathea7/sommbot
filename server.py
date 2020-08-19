@@ -20,13 +20,15 @@ def Homepage():
 @app.route("/api/recommendation", methods=["POST"])
 def recommendation():
   print("hitting the rec route \n \n \n")
-  print(request.form)
+  print(request.get_json())
 
-  min_year = request.form.get("min-year", "1000")
-  max_year = request.form.get("max-year", "2017")
-  min_price = request.form.get("min-price", "0")
-  max_price = request.form.get("max-price", "3300")
-  descriptors = request.form.getlist("descriptor")
+  data = request.get_json()
+
+  min_year = data["min_year"]
+  max_year = data["max_year"]
+  min_price = data["min_price"]
+  max_price = data["max_price"]
+  descriptors = data["descriptor"]
 
   wines = crud.get_wine_by_filters(min_year, max_year, min_price, max_price, descriptors)
 

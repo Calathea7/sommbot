@@ -58,10 +58,10 @@ function Recommendation(props) {
 
   const WineFilters = (e)=> {
     e.preventDefault()
-    const filters = {"min-year":minYear,
-                    "max-year": maxYear,
-                    "min-price": minPrice,
-                    "max-price": maxPrice,
+    const filters = {"min_year": minYear,
+                    "max_year": maxYear,
+                    "min_price": minPrice,
+                    "max_price": maxPrice,
                     "descriptor": descriptor}
     console.log(filters)
     console.log(JSON.stringify(filters))
@@ -70,8 +70,7 @@ function Recommendation(props) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(filters)
-
+      body: JSON.stringify(filters),
     })
     .then(res => res.json())
     .then((data) => {
