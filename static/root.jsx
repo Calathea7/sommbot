@@ -64,12 +64,14 @@ function Recommendation(props) {
                     "max-price": maxPrice,
                     "descriptor": descriptor}
     console.log(filters)
+    console.log(JSON.stringify(filters))
     fetch('/api/recommendation', {
       method: 'POST',
-      body: JSON.stringify(filters),
       headers: {
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify(filters)
+
     })
     .then(res => res.json())
     .then((data) => {
