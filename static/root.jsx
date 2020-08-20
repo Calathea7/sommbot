@@ -142,7 +142,7 @@ function Recommendation(props) {
           </div>
           <div>
             Please choose descriptors for your dream wine:
-            <input value={descriptor} onChange={(e) => setDescriptor(e.target.value)} type="checkbox" className="descriptor" name="descriptor" value="cherry"/>cherry
+            <input value={descriptor} onChange={(e) => setDescriptor(e.target.value)} type="checkbox" className="descriptor" name="descriptor" />cherry
             <input type="checkbox" className="descriptor" name="descriptor" value="strawberry"/>strawberry
             <input type="checkbox" className="descriptor" name="descriptor" value="mushroom"/>mushroom
             <input type="checkbox" className="descriptor" name="descriptor" value="oak"/>oak
