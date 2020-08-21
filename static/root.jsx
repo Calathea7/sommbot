@@ -1,9 +1,11 @@
+
 const Router = ReactRouterDOM.BrowserRouter;
 const Route =  ReactRouterDOM.Route;
 const Link =  ReactRouterDOM.Link;
 const Prompt =  ReactRouterDOM.Prompt;
 const Switch = ReactRouterDOM.Switch;
 const Redirect = ReactRouterDOM.Redirect;
+
 
 function Homepage() {
     return <div> Welcome to my site </div>
@@ -55,6 +57,19 @@ function Recommendation(props) {
   const [descriptor, setDescriptor] = React.useState([])
   const [recList, setRecList] = React.useState(["loading..."])
   const [showResult, setShowResult] = React.useState(false)
+
+  const descriptors = ['cherry', 'strawberry', 'mushroom','perfumed', 'ripe', 'oak', 'juicy']
+
+  const filterCheckbox = (e, item) => {
+    if (e.target.checked) {
+      setDescriptor([...descriptor, item.value])
+    } else {
+      setDescriptor((prev) =>
+        prev.filter((currItem) => currItem.value !== item.value))
+    }
+
+  };
+
 
   const WineFilters = (e)=> {
     e.preventDefault()
@@ -142,20 +157,21 @@ function Recommendation(props) {
           </div>
           <div>
             Please choose descriptors for your dream wine:
-            <input value={descriptor} onChange={(e) => setDescriptor(e.target.value)} type="checkbox" className="descriptor" name="descriptor" />cherry
-            <input type="checkbox" className="descriptor" name="descriptor" value="strawberry"/>strawberry
-            <input type="checkbox" className="descriptor" name="descriptor" value="mushroom"/>mushroom
-            <input type="checkbox" className="descriptor" name="descriptor" value="oak"/>oak
-            <input type="checkbox" className="descriptor" name="descriptor" value="ripe"/>ripe
-            <input type="checkbox" className="descriptor" name="descriptor" value="perfumed"/>perfumed
-            <input type="checkbox" className="descriptor" name="descriptor" value="juicy"/>juicy
+            <input value={descriptors[0]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="cherry"/>{descriptors[0]}
+            <input value={descriptors[1]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="strawberry"/>{descriptors[1]}
+            <input value={descriptors[2]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="mushroom"/>{descriptors[2]}
+            <input value={descriptors[3]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="perfumed"/>{descriptors[3]}
+            <input value={descriptors[4]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="ripe"/>{descriptors[4]}
+            <input value={descriptors[5]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="oak"/>{descriptors[5]}
+            <input value={descriptors[6]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="juicy"/>{descriptors[6]}
           </div>
-
           <input type="submit"/>
         </form>
       )
     }
   };
+
+
 
 
   return (
