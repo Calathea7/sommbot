@@ -60,14 +60,8 @@ function Recommendation(props) {
 
   const descriptors = ['cherry', 'strawberry', 'mushroom','perfumed', 'ripe', 'oak', 'juicy']
 
-  const filterCheckbox = (e, item) => {
-    if (e.target.checked) {
-      setDescriptor([...descriptor, item.value])
-    } else {
-      setDescriptor((prev) =>
-        prev.filter((currItem) => currItem.value !== item.value))
-    }
-
+  const filterCheckbox = (e) => {
+    setDescriptor([...descriptor, e.target.value])
   };
 
 
@@ -157,13 +151,13 @@ function Recommendation(props) {
           </div>
           <div>
             Please choose descriptors for your dream wine:
-            <input value={descriptors[0]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="cherry"/>{descriptors[0]}
-            <input value={descriptors[1]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="strawberry"/>{descriptors[1]}
-            <input value={descriptors[2]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="mushroom"/>{descriptors[2]}
-            <input value={descriptors[3]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="perfumed"/>{descriptors[3]}
-            <input value={descriptors[4]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="ripe"/>{descriptors[4]}
-            <input value={descriptors[5]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="oak"/>{descriptors[5]}
-            <input value={descriptors[6]} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" id="juicy"/>{descriptors[6]}
+            <input value={descriptors[0]} checked={descriptor.includes(descriptors[0])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[0]}
+            <input value={descriptors[1]} checked={descriptor.includes(descriptors[1])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[1]}
+            <input value={descriptors[2]} checked={descriptor.includes(descriptors[2])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[2]}
+            <input value={descriptors[3]} checked={descriptor.includes(descriptors[3])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[3]}
+            <input value={descriptors[4]} checked={descriptor.includes(descriptors[4])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[4]}
+            <input value={descriptors[5]} checked={descriptor.includes(descriptors[5])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[5]}
+            <input value={descriptors[6]} checked={descriptor.includes(descriptors[6])} onChange={filterCheckbox} type="checkbox" className="descriptor" name="descriptor" />{descriptors[6]}
           </div>
           <input type="submit"/>
         </form>
