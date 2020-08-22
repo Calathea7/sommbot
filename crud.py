@@ -4,6 +4,23 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.sql import func
 from sqlalchemy import desc
 
+def create_user(email, password, name):
+
+  user = User(email=email, password=password, name=name)
+
+  db.session.add(user)
+  db.session.commit()
+
+  return user
+
+def all_users():
+
+  return User.query.all()
+
+def get_user_by_email(email):
+
+  return User.query.filter(User.email == email).first()
+
 def all_wines():
 
   return Wine.query.all()

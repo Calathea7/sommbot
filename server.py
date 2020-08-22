@@ -16,11 +16,43 @@ def Homepage():
 
     return render_template('root.html')
 
+@app.route('/api/create-account', methods=["POST"])
+def create_account():
+
+  data = request.get_json()
+
+  email = data["email"]
+  password = data["password"]
+  name = data["name"]
+
+  user = crud.get_user_by_email(email=email)
+
+  if user:
+    status = 'error'
+    message = 'Account with this email already exists. Please try logging in.'
+
+  else:
+    crud.create_user(email=email, password=password, name=name)
+    status = 'success'
+    message = 'Thank you for creating an account. Please log in.'
+
+  return jsonify({'status': status, 'message': message})
+
+@app.route('/api/login', methods=["POST"])
+def login_user():
+
+  data = request.get_json()
+
+  email = data["email"]
+  password = data["password"]
+
+
+
 
 @app.route("/api/recommendation", methods=["POST"])
 def recommendation():
-  print("hitting the rec route \n \n \n")
-  print(request.get_json())
+  # print("hitting the rec route \n \n \n")
+  # print(request.get_json())
 
   data = request.get_json()
 

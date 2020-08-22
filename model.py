@@ -17,6 +17,11 @@ class User(db.Model):
                     nullable=False,
                     unique=True)
 
+  password = db.Column(db.String(50),
+                      nullable=False)
+
+  rec = db.relationship('Recommendation')
+
   def __repr__(self):
     return f'<User name={self.name} email={self.email}>'
 
@@ -39,6 +44,9 @@ class Recommendation(db.Model):
 
   user_email = db.Column(db.String,
                           db.ForeignKey('users.email'))
+
+  user = db.relationship('User')
+  wine = db.relationship('Wine')
 
   def __repr__(self):
     return f'<Recommendation id={self.id} rec_date={self.rec_date} fav_rec={self.fav_rec}>'
@@ -77,6 +85,8 @@ class Wine(db.Model):
   dsrwine = db.relationship('DsrWine')
 
   descriptors = db.relationship('Descriptor', secondary = 'dsrwines')
+
+  rec = db.relationship('Recommendation')
 
   def __repr__(self):
     return f'<Wine id={self.id} country={self.country}>'
