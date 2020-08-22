@@ -15,6 +15,59 @@ function About() {
     return <div> Wine recommendation app </div>
 }
 
+function CreateAccount(props) {
+
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [name, setName] = React.useState('')
+
+  const CreateUser = (e) => {
+    e.preventDefault()
+    const fields = {
+      "email":email,
+      "password":password,
+      "name": name
+    }
+    fetch('/api/create-account', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fields)
+    })
+    .then(res => res.json())
+    .then((data) => {
+      alert(data.message)
+    })
+  };
+  return (
+    <form>
+      <label htmlFor="email">Email:</label>
+      <input
+        id="email"
+        type="text"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}>
+      </input>
+      <label htmlFor="name">Name:</label>
+      <input
+        id="name"
+        type="text"
+        onChange={(e) => setName(e.target.value)}
+        value={name}>
+      </input>
+      <label htmlFor="password">Password:</label>
+      <input
+        id="password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}>
+      </input>
+      <button onClick={CreateUser}> Create Profile </button>
+    </form>
+  )
+}
+
 function Login(props) {
 
   const [email, setEmail] = React.useState('')
@@ -223,6 +276,9 @@ function App() {
                   <Link to="/login"> Login </Link>
               </li>
               <li>
+                  <Link to="/create-account"> Create Account </Link>
+              </li>
+              <li>
                   <Link to="/recommendation"> Wine Recommendation </Link>
               </li>
             </ul>
@@ -233,6 +289,9 @@ function App() {
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/create-account">
+              <CreateAccount />
             </Route>
             <Route path="/recommendation">
               <Recommendation />
