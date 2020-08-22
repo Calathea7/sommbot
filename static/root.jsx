@@ -16,15 +16,47 @@ function About() {
 }
 
 function Login(props) {
-  // a form with no logic yet
+
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+
+  const VerifyUser = (e) => {
+    e.preventDefault()
+    const inputs = {
+      "email": email,
+      "password": password
+    }
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(inputs)
+    })
+    .then(res => res.json())
+    .then((data) => {
+      alert(data.message)
+    })
+  };
+
   return (
-    <div>
-      Username:
-      <input type="text"></input>
-      Password:
-      <input type="text"></input>
-      <button> Login </button>
-    </div>
+    <form>
+      <label htmlFor="email">Email:</label>
+      <input
+        id="email"
+        type="text"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}>
+      </input>
+      <label htmlFor="password">Password:</label>
+      <input
+        id="password"
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}>
+      </input>
+      <button onClick={VerifyUser}> Log In </button>
+    </form>
   )
 }
 

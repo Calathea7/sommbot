@@ -21,6 +21,15 @@ def get_user_by_email(email):
 
   return User.query.filter(User.email == email).first()
 
+def get_user_by_email_password(email, password):
+
+  return User.query.filter(User.email == email, User.password == password).first()
+
+def get_user_profile_info(email):
+
+  # need to also query the recs table to get saved rec for a user
+  return User.query.filter(User.email == email)
+
 def all_wines():
 
   return Wine.query.all()

@@ -46,10 +46,34 @@ def login_user():
   email = data["email"]
   password = data["password"]
 
+  user = crud.get_user_by_email_password(email=email, password=password)
+
+  if user:
+    status = 'success'
+    message = 'You have successfully logged in!'
+
+  else:
+    status = 'error'
+    message = 'Your email or password are incorrect'
+
+  return jsonify({'status': status, 'message': message})
+
+@app.route('/api/logout', methods=["GET", "POST"])
+def logout_user():
+
+  pass
+
+  return None
+
+@app.route('/api/user-profile', methods=["POST"])
+def user_profile():
+
+  data = request.get_json()
+
+  return None
 
 
-
-@app.route("/api/recommendation", methods=["POST"])
+@app.route('/api/recommendation', methods=["POST"])
 def recommendation():
   # print("hitting the rec route \n \n \n")
   # print(request.get_json())
