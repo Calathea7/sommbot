@@ -43,10 +43,12 @@ def create_account():
 # POST /api/user/login
 # @ app.route('login
 # @user_loader', methods=["POST"])
+@app.route('/api/login', methods=["POST"])
 def login_user():
 
   data = request.get_json()
 
+  session['email'] = data["email"]
   email = data["email"]
   password = data["password"]
 
@@ -66,9 +68,16 @@ def login_user():
 @app.route('/api/logout', methods=["GET", "POST"])
 def logout_user():
 
-  pass
+  if 'email' in session:
+    session.pop('email', None)
+    status = 'success'
+    message = 'You have successfully logged out!'
 
-  return None
+  else:
+    status = 'error'
+    message = 'You were not logged in'
+
+  return jsonify({'status': status, 'message': message})
 
 
 # TODO: GET /api/user/<user_id>
@@ -99,7 +108,7 @@ def save_rec():
   return jsonify({'status': status, 'message': message})
 
 
-# TODO: GET /api/wine/recommendation?min_year=<>&max_year=<>
+# sTODO: GET /api/wine/recommendation?min_year=<>&max_year=<>
 @app.route('/api/recommendation', methods=["POST"])
 def recommendation():
   # print("hitting the rec route \n \n \n")

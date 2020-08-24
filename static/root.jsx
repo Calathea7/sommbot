@@ -73,6 +73,15 @@ function Login(props) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
+  const LogoutUser = (e) => {
+    e.preventDefault()
+    fetch('/api/logout')
+    .then(res => res.json())
+    .then((data) => {
+      alert(data.message)
+    })
+  };
+
   const VerifyUser = (e) => {
     e.preventDefault()
     const inputs = {
@@ -109,6 +118,7 @@ function Login(props) {
         value={password}>
       </input>
       <button onClick={VerifyUser}> Log In </button>
+      <button onClick={LogoutUser}> Log Out </button>
     </form>
   )
 }
