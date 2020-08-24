@@ -95,7 +95,9 @@ def save_rec():
 
   rec_info = data["rec_info"]
 
-  rec = crud.save_recommendation(rec_info=rec_info)
+  email = session['email']
+
+  rec = crud.save_recommendation(rec_info=rec_info, user_email=email)
 
   if rec:
     status = 'success'

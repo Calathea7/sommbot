@@ -30,7 +30,7 @@ def get_user_profile_info(email):
 
 def save_recommendation(rec_info):
 
-  rec = Recommendation(rec_info=rec_info, rec_date=datetime.now().timestamp(), user_email='???')
+  rec = Recommendation(rec_info=rec_info, rec_date=datetime.now().timestamp(), user_email=user_email)
 
   db.session.add(rec)
   db.session.commit()
