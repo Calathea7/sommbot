@@ -39,14 +39,13 @@ class Recommendation(db.Model):
 
   fav_rec = db.Column(db.Boolean)
 
-  wine_id = db.Column(db.String,
-                        db.ForeignKey('wines.id'))
+  rec_info = db.Column(db.String)
 
   user_email = db.Column(db.String,
                           db.ForeignKey('users.email'))
 
   user = db.relationship('User')
-  wine = db.relationship('Wine')
+
 
   def __repr__(self):
     return f'<Recommendation id={self.id} rec_date={self.rec_date} fav_rec={self.fav_rec}>'
@@ -86,7 +85,7 @@ class Wine(db.Model):
 
   descriptors = db.relationship('Descriptor', secondary = 'dsrwines')
 
-  rec = db.relationship('Recommendation')
+
 
   def __repr__(self):
     return f'<Wine id={self.id} country={self.country}>'

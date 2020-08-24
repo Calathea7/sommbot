@@ -113,9 +113,7 @@ function Login(props) {
   )
 }
 
-function PostRecItem(props) {
-  return <li>{props.rec}</li>
-}
+
 
 // function Selector(props) {
 
@@ -133,6 +131,10 @@ function PostRecItem(props) {
 //   )
 // }
 
+function PostRecItem(props) {
+  return <li>{props.rec}</li>
+}
+
 function Recommendation(props) {
 
   const [minYear, setMinYear] = React.useState('1000')
@@ -142,11 +144,30 @@ function Recommendation(props) {
   const [descriptor, setDescriptor] = React.useState([])
   const [recList, setRecList] = React.useState(["loading..."])
   const [showResult, setShowResult] = React.useState(false)
+  const [recInfo, setRecInfo] = React.useState('')
 
   const descriptors = ['cherry', 'strawberry', 'mushroom','perfumed', 'ripe', 'oak', 'juicy']
 
   const filterCheckbox = (e) => {
     setDescriptor([...descriptor, e.target.value])
+  };
+
+  const SaveRec = (e) => {
+    e.preventDefault()
+    const fields = {
+      "rec_info":recInfo
+    }
+    fetch('/api/wine/save-rec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(fields)
+    })
+    .then(res => res.json())
+    .then((data) => {
+      alert(data.message)
+    })
   };
 
 
@@ -159,6 +180,7 @@ function Recommendation(props) {
                     "descriptor": descriptor}
     console.log(filters)
     console.log(JSON.stringify(filters))
+    // fetch('localhost:24050/api/wine/recommendation?min_year=1990&')
     fetch('/api/recommendation', {
       method: 'POST',
       headers: {
@@ -174,6 +196,7 @@ function Recommendation(props) {
       }
       setRecList(recs)
       setShowResult(true)
+      setRecInfo(recs)
     })
   }
 
@@ -185,6 +208,7 @@ function Recommendation(props) {
           <ul>
             {recList}
           </ul>
+          <button onClick={SaveRec}>Save this</button>
         </div>
       )
     }

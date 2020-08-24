@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import joinedload
 from sqlalchemy.sql import func
 from sqlalchemy import desc
+from datetime import datetime
 
 def create_user(email, password, name):
 
@@ -13,9 +14,6 @@ def create_user(email, password, name):
 
   return user
 
-def all_users():
-
-  return User.query.all()
 
 def get_user_by_email(email):
 
@@ -29,6 +27,15 @@ def get_user_profile_info(email):
 
   # need to also query the recs table to get saved rec for a user
   return User.query.filter(User.email == email)
+
+def save_recommendation(rec_info):
+
+  rec = Recommendation(rec_info=rec_info, rec_date=datetime.now().timestamp(), user_email='???')
+
+  db.session.add(rec)
+  db.session.commit()
+
+  return rec
 
 def all_wines():
 
@@ -51,7 +58,20 @@ def get_wine_by_filters(min_year, max_year, min_price, max_price, descriptors):
 
   return db.session.query(Wine.wine_title, func.count(Descriptor.name)).join(Wine.descriptors).filter(Wine.year.between(min_year, max_year), Wine.price.between(min_price, max_price), Descriptor.name.in_((descriptors))).group_by(Wine.wine_title).order_by(desc(func.count(Descriptor.name))).limit(5).all()
 
-
+  # return db.session.query(
+  #   Wine.wine_title,
+  #   func.count(Descriptor.name)
+  #  ).join(
+  #   Wine.descriptors
+  #  ).filter(
+  #   Wine.year.between(min_year, max_year),
+  #   Wine.price.between(min_price, max_price),
+  #   Descriptor.name.in_((descriptors))
+  #  ).group_by(
+  #   Wine.wine_title
+  # ).order_by(
+  #   desc(func.count(Descriptor.name))
+  # ).limit(5).all()
 
 if __name__ == '__main__':
     from server import app
